@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Scripts.Ecs.Systems
 {
-    public class AttackProcessSystem : IEcsRunSystem
+    public class SkillProcessSystem : IEcsRunSystem
     {
         private EcsWorldInject _world = default;
         private EcsFilterInject<Inc<AttackComponent>> _attackEntities = default;

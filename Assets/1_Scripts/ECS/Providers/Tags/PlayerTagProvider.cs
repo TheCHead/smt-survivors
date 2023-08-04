@@ -3,7 +3,7 @@ using Scripts.Ecs.Components;
 
 namespace Scripts.Ecs.Providers
 {
-    public class EnemyProvider : ComponentConverter<EnemyComponent>
+    public class PlayerTagProvider : ComponentConverter<PlayerTag>
     {
         
     }

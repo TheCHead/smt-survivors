@@ -10,7 +10,7 @@ namespace Scripts.Ecs.Systems
     {
         private EcsWorldInject _world = default;
         private EcsFilterInject<Inc<EnemySpawnerComponent>> _spawnerEntities = default;
-        private EcsFilterInject<Inc<EnemyComponent>> _enemyEntities = default;
+        private EcsFilterInject<Inc<EnemyTag>> _enemyEntities = default;
         private EcsPoolInject<EnemySpawnerComponent> _spawnerPool = default;
         
 

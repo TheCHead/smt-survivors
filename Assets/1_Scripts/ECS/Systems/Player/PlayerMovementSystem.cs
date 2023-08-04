@@ -8,8 +8,8 @@ namespace Scripts.Ecs.Systems
     public class PlayerMovementSystem : IEcsInitSystem, IEcsRunSystem
     {
         private readonly EcsWorldInject _world = default;
-        private readonly EcsFilterInject<Inc<PlayerComponent>> _playerEntities = default;
-        private readonly EcsPoolInject<PlayerComponent> _playerPool = default;
+        private readonly EcsFilterInject<Inc<PlayerTag, MoverComponent>> _playerMoveEntities = default;
+        private readonly EcsPoolInject<MoverComponent> _moverPool = default;
 
         public void Init(IEcsSystems systems)
         {
@@ -24,18 +24,18 @@ namespace Scripts.Ecs.Systems
 
         public void Run(IEcsSystems systems)
         {
-            foreach (int entity in _playerEntities.Value)
+            foreach (int entity in _playerMoveEntities.Value)
             {
-                ref var player = ref _playerPool.Value.Get(entity);
+                ref var mover = ref _moverPool.Value.Get(entity);
 
                 float h = Input.GetAxisRaw("Horizontal");
                 float v = Input.GetAxisRaw("Vertical");
 
                 if (h != 0)
-                    player.Renderer.flipX = h < 0;
+                    mover.Renderer.flipX = h < 0;
                 
                 
-                player.Transform.Translate(new Vector3(h, v, 0f).normalized * player.Speed * Time.deltaTime);
+                mover.Transform.Translate(new Vector3(h, v, 0f).normalized * mover.Speed * Time.deltaTime);
             }
         }
     }

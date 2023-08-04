@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1383376892243695952}
   - component: {fileID: 5546505446316913621}
   - component: {fileID: 5857662922811987479}
+  - component: {fileID: 8706560863882148851}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -53,6 +54,7 @@ MonoBehaviour:
   _converters:
   - {fileID: 8056021062664262119}
   - {fileID: 5857662922811987479}
+  - {fileID: 8706560863882148851}
   _destroyAfterConversion: 0
 --- !u!114 &8056021062664262119
 MonoBehaviour:
@@ -66,11 +68,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34d5cd31e4dd44dea515aac6bd8b20ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _component:
-    Transform: {fileID: 4885837055989111826}
-    Speed: 1
-    Collider: {fileID: 2436935658732141247}
-    Renderer: {fileID: 3602689923037285363}
 --- !u!61 &2436935658732141247
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -169,6 +166,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _component:
     Reference: {fileID: 5546505446316913621}
+--- !u!114 &8706560863882148851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2625192725117266564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaad0f7da0844f7ab17b8f82378c8a80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _component:
+    Speed: 1
+    Transform: {fileID: 4885837055989111826}
+    LookDirection: {x: 0, y: 0}
+    Renderer: {fileID: 3602689923037285363}
 --- !u!1 &3055257024793414668
 GameObject:
   m_ObjectHideFlags: 0

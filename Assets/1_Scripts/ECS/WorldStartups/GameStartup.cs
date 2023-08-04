@@ -36,8 +36,8 @@ namespace Scripts.Ecs.Startups
                 .Add(new PlayerMovementSystem())
                 .Add(new EnemyMovementSystem(player))
                 .Add(new EnemySpawnerSystem())
-                .Add(new AttackSystem())
-                .Add(new AttackProcessSystem())
+                .Add(new SkillUseSystem())
+                .Add(new SkillProcessSystem())
                 ;
         }
 

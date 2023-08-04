@@ -1,15 +1,14 @@
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Scripts.Ecs.Components
 {
     [Serializable]
-    public struct EnemyComponent
+    public struct MoverComponent
     {
-        public Transform Transform;
         public float Speed;
-        public Collider2D Collider;
+        public Transform Transform;
+        public Vector2 LookDirection;
         public SpriteRenderer Renderer;
     }
 }
