@@ -1,4 +1,6 @@
 using System;
+using Scripts.Data;
+using Scripts.Data.Skills;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -8,8 +10,8 @@ namespace Scripts.Ecs.Components
     public struct SkillUserComponent
     {
         public SpriteRenderer Renderer;
-        public float AttackCooldown;
-        public float TimeSinceLastAttack;
-        public GameObject SkillPrefab;
+        public float UseCooldown;
+        [HideInInspector] public float TimeSinceLastUse;
+        [FormerlySerializedAs("SkillPrefab")] public SkillSO SkillData;
     }
 }

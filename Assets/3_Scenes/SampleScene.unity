@@ -681,6 +681,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6261568052435733629, guid: ed8ca12a3d10c44018b7fcb3eafbfd28, type: 3}
+      propertyPath: _component.SkillData
+      value: 
+      objectReference: {fileID: 11400000, guid: eddc5e893e1004a9f9db692f7b49b123, type: 2}
+    - target: {fileID: 6261568052435733629, guid: ed8ca12a3d10c44018b7fcb3eafbfd28, type: 3}
+      propertyPath: _component.UseCooldown
+      value: 0.75
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _component:
-    Speed: 3
+    Speed: 5
     Transform: {fileID: 4767150720534891996}
     LookDirection: {x: 0, y: 0}
     Renderer: {fileID: 7114564443837900995}
