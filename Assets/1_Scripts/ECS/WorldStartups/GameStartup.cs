@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using _1_Scripts.ECS.Systems.Common;
 using AB_Utility.FromSceneToEntityConverter;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using Leopotam.EcsLite.ExtendedSystems;
 using Scripts.Ecs.Components;
 using Scripts.Ecs.Systems;
 using UnityEngine;
@@ -25,11 +22,10 @@ namespace Scripts.Ecs.Startups
 
             _systems.ConvertScene();
             AddSystems();
+            //AddOneFrames();
             
             _systems.Inject();
             _systems.Init();
-            
-            //AddOneFrames();
         }
 
         private void AddSystems()
@@ -37,24 +33,27 @@ namespace Scripts.Ecs.Startups
             _systems
                 .Add(new InitEntityReferenceSystem())
                 .Add(new CooldownSystem())
+                
+                // player
                 .Add(new PlayerMovementSystem())
-                .Add(new EnemyMovementSystem(player))
+                
+                // enemies
                 .Add(new EnemySpawnerSystem())
+                .Add(new EnemyMovementSystem(player))
                 
                 // skills
                 .Add(new SkillUserSystem())
                 .Add(new SkillLifetimeSystem())
                 .Add(new WhipSystem())
                 
-                // one frame killer
-                .Add(new OneFrameKillSystem()); 
+                // one frame killers
+                .DelHere<FireSkillComponent>()
+                .DelHere<KillSkillComponent>();
         }
 
         private void AddOneFrames()
         {
             // no OneFrames in lite
-            //OneFrameKillSystem.AddOneFrame<FireSkillComponent>();
-            //OneFrameKillSystem.AddOneFrame<KillSkillComponent>();
         }
 
         private void Start()

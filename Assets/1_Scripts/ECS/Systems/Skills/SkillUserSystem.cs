@@ -2,7 +2,6 @@ using AB_Utility.FromSceneToEntityConverter;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Scripts.Ecs.Components;
-using Scripts.Ecs.Utility;
 using UnityEngine;
 
 namespace Scripts.Ecs.Systems
