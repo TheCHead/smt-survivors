@@ -1,8 +1,7 @@
 using System;
-using Scripts.Data;
+using Leopotam.EcsLite;
 using Scripts.Data.Skills;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Scripts.Ecs.Components
 {
@@ -10,8 +9,6 @@ namespace Scripts.Ecs.Components
     public struct SkillUserComponent
     {
         public SpriteRenderer Renderer;
-        public float UseCooldown;
-        [HideInInspector] public float TimeSinceLastUse;
-        [FormerlySerializedAs("SkillPrefab")] public SkillSO SkillData;
+        public SkillSO SkillData;
     }
 }

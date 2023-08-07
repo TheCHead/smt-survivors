@@ -1,4 +1,3 @@
-using AB_Utility.FromSceneToEntityConverter;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Scripts.Ecs.Components;
@@ -12,19 +11,29 @@ namespace Scripts.Ecs.Systems
         private EcsFilterInject<Inc<SkillUserComponent>> _userEntities = default;
         private EcsPoolInject<SkillUserComponent> _userPool = default;
 
+        private EcsPoolInject<SkillComponent> _skillPool = default;
+        private EcsPoolInject<WhipComponent> _whipPool = default;
+
 
         public void Init(IEcsSystems systems)
         {
             foreach (int entity in _userEntities.Value)
             {
                 ref var user = ref _userPool.Value.Get(entity);
-                
-                GameObject skill = EcsConverter.InstantiateAndCreateEntity(user.SkillData.Prefab, _world.Value);
-                skill.transform.parent = user.Renderer.transform;
-                skill.transform.localPosition = Vector3.zero;
-                // get skill entity, config it with skill data, assign user
-                
-                
+
+                int skillEntity = _world.Value.NewEntity();
+
+                // need skill factory
+                // add skill base
+                ref var skillComponent = ref _skillPool.Value.Add(skillEntity);
+                skillComponent.Cooldown = user.SkillData.Cooldown;
+                skillComponent.Duration = user.SkillData.Duration;
+                skillComponent.UserEntity = _world.Value.PackEntity(entity);
+                // add skill extension
+                ref var whipComponent = ref _whipPool.Value.Add(skillEntity);
+                GameObject skillGo = Object.Instantiate(user.SkillData.Prefab, user.Renderer.transform);
+                whipComponent.Transform = skillGo.transform;
+                whipComponent.Transform.localPosition = Vector3.zero;
             }
         }
 

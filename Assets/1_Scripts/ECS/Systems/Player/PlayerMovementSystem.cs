@@ -30,12 +30,18 @@ namespace Scripts.Ecs.Systems
 
                 float h = Input.GetAxisRaw("Horizontal");
                 float v = Input.GetAxisRaw("Vertical");
-
+                
+                Vector3 inputDir = new Vector3(h, v, 0f).normalized;
+                
+                if (inputDir.sqrMagnitude == 0)
+                    continue;
+                
+                // flip sprite
                 if (h != 0)
                     mover.Renderer.flipX = h < 0;
                 
-                
-                mover.Transform.Translate(new Vector3(h, v, 0f).normalized * mover.Speed * Time.deltaTime);
+                mover.LookDirection = inputDir;
+                mover.Transform.Translate( inputDir * mover.Speed * Time.deltaTime);
             }
         }
     }

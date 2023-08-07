@@ -1,4 +1,5 @@
 using System;
+using Leopotam.EcsLite;
 using UnityEngine;
 
 namespace Scripts.Ecs.Components
@@ -10,5 +11,7 @@ namespace Scripts.Ecs.Components
         public float Duration;
         [HideInInspector]
         public float Lifetime;
+        [HideInInspector]
+        public EcsPackedEntity UserEntity;
     }
 }

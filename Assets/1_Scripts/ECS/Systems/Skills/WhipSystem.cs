@@ -13,7 +13,9 @@ namespace Scripts.Ecs.Systems
         private readonly EcsFilterInject<Inc<WhipComponent, ProcessSkillComponent>> _processFilter = default;
         private readonly EcsFilterInject<Inc<WhipComponent, KillSkillComponent>> _killFilter = default;
         
+        private readonly EcsPoolInject<SkillComponent> _skillPool = default;
         private readonly EcsPoolInject<WhipComponent> _whipPool = default;
+        private readonly EcsPoolInject<MoverComponent> _moverPool = default;
 
 
         public void Run(IEcsSystems systems)
@@ -30,13 +32,13 @@ namespace Scripts.Ecs.Systems
             {
                 ref var whip = ref _whipPool.Value.Get(entity);
 
-                float h = Input.GetAxis("Horizontal");
+                if (_skillPool.Value.Get(entity).UserEntity.Unpack(_world.Value, out int userEntity))
+                {
+                    ref var userMover = ref _moverPool.Value.Get(userEntity);
 
-                if (h > 0)
-                    whip.Transform.right = Vector3.right;
-                else if (h < 0)
-                    whip.Transform.right = Vector3.left;
-                
+                    whip.Transform.right = userMover.Renderer.flipX ? Vector3.left : Vector3.right;
+                }
+
                 whip.Transform.gameObject.SetActive(true);
             }
         }
