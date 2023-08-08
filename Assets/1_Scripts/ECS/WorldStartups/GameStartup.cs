@@ -33,6 +33,7 @@ namespace Scripts.Ecs.Startups
             _systems
                 .Add(new InitEntityReferenceSystem())
                 .Add(new CooldownSystem())
+                .Add(new DelaySystem())
                 
                 // player
                 .Add(new PlayerMovementSystem())
@@ -48,7 +49,7 @@ namespace Scripts.Ecs.Startups
                 .Add(new ProjectileLifetimeSystem())
 
                 // one frame killers
-                .DelHere<FireComponent>()
+                .DelHere<FireSkillComponent>()
                 .DelHere<KillComponent>();
         }
 

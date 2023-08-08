@@ -9,11 +9,11 @@ namespace Scripts.Ecs.Systems
     {
         private readonly EcsWorldInject _world = default;
         private readonly EcsFilterInject<Inc<SkillComponent>, Exc<CooldownComponent>> _readyFilter = default;
-        private readonly EcsFilterInject<Inc<SkillComponent, FireComponent>> _fireFilter = default;
+        private readonly EcsFilterInject<Inc<SkillComponent, FireSkillComponent>> _fireFilter = default;
         //private readonly EcsFilterInject<Inc<SkillComponent, ProcessSkillComponent>> _processFilter = default;
             
         private readonly EcsPoolInject<SkillComponent> _skillPool = default; 
-        private readonly EcsPoolInject<FireComponent> _firePool = default;
+        private readonly EcsPoolInject<FireSkillComponent> _firePool = default;
         private readonly EcsPoolInject<ProcessSkillComponent> _processPool = default;
         private readonly EcsPoolInject<CooldownComponent> _cooldownPool = default;
         //private readonly EcsPoolInject<KillComponent> _killPool = default;

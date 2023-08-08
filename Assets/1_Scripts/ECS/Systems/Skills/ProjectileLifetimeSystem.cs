@@ -9,26 +9,32 @@ namespace Scripts.Ecs.Systems
     public class ProjectileLifetimeSystem : IEcsRunSystem
     {
         private readonly EcsWorldInject _world = default;
-        private readonly EcsFilterInject<Inc<ProjectileComponent, FireComponent>> _fireFilter = default;
-        private readonly EcsFilterInject<Inc<ProjectileComponent>, Exc<KillComponent>> _liveFilter = default;
+        private readonly EcsFilterInject<Inc<ProjectileComponent, ShootProjectileComponent>, Exc<DelayComponent>> _shootFilter = default;
+        private readonly EcsFilterInject<Inc<ProjectileComponent>, Exc<KillComponent, DelayComponent>> _liveFilter = default;
         private readonly EcsFilterInject<Inc<ProjectileComponent, KillComponent>> _killFilter = default;
         
         private readonly EcsPoolInject<ProjectileComponent> _projectilePool = default;
         private readonly EcsPoolInject<KillComponent> _killPool = default;
 
+        
 
         public void Run(IEcsSystems systems)
         {
-            OnFire();
+            OnShoot();
             OnLive();
             OnKill();
         }
-        
-        private void OnFire()
+
+        private void OnShoot()
         {
-            foreach (var entity in _fireFilter.Value)
+            foreach (var entity in _shootFilter.Value)
             {
+                _shootFilter.Pools.Inc2.Del(entity);
+                
                 ref var projectile = ref _projectilePool.Value.Get(entity);
+
+                projectile.GameObject.transform.right = projectile.Direction;
+                projectile.GameObject.SetActive(true);
                 
                 LayerMask mask = LayerMask.GetMask("Enemy");
                 RaycastHit2D[] hits = Physics2D.CircleCastAll(projectile.GameObject.transform.position, 0.3f,
@@ -60,12 +66,11 @@ namespace Scripts.Ecs.Systems
 
                 if (projectile.Lifetime > projectile.Duration)
                 {
-                    //_projectilePool.Value.Del(entity);
                     _killPool.Value.Add(entity);
                 }
             }
         }
-        
+
         private void OnKill()
         {
             foreach (var entity in _killFilter.Value)
