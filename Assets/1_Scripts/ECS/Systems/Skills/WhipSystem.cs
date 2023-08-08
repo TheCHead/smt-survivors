@@ -9,20 +9,16 @@ namespace Scripts.Ecs.Systems
     public class WhipSystem : IEcsRunSystem
     {
         private EcsWorldInject _world = default;
-        private readonly EcsFilterInject<Inc<WhipComponent, FireSkillComponent>> _fireFilter = default;
-        private readonly EcsFilterInject<Inc<WhipComponent, ProcessSkillComponent>> _processFilter = default;
-        private readonly EcsFilterInject<Inc<WhipComponent, KillSkillComponent>> _killFilter = default;
-        
-        private readonly EcsPoolInject<SkillComponent> _skillPool = default;
-        private readonly EcsPoolInject<WhipComponent> _whipPool = default;
-        private readonly EcsPoolInject<MoverComponent> _moverPool = default;
+        private readonly EcsFilterInject<Inc<SkillComponent, WhipComponent, FireComponent>> _fireFilter = default;
+
+        private readonly EcsPoolInject<TransformComponent> _transformPool = default;
+        private readonly EcsPoolInject<ProjectileComponent> _projectilePool = default;
+        private readonly EcsPoolInject<FireComponent> _firePool = default;
 
 
         public void Run(IEcsSystems systems)
         {
             OnFire();
-            OnProcess();
-            OnKill();
         }
 
 
@@ -30,49 +26,28 @@ namespace Scripts.Ecs.Systems
         {
             foreach (int entity in _fireFilter.Value)
             {
-                ref var whip = ref _whipPool.Value.Get(entity);
-
-                if (_skillPool.Value.Get(entity).UserEntity.Unpack(_world.Value, out int userEntity))
+                ref var skill = ref _fireFilter.Pools.Inc1.Get(entity);
+                ref var whip = ref _fireFilter.Pools.Inc2.Get(entity);
+                
+                
+                if (skill.UserEntity.Unpack(_world.Value, out int userEntity))
                 {
-                    ref var userMover = ref _moverPool.Value.Get(userEntity);
-
-                    whip.Transform.right = userMover.Renderer.flipX ? Vector3.left : Vector3.right;
-                }
-
-                whip.Transform.gameObject.SetActive(true);
-            }
-        }
-
-        private void OnKill()
-        {
-            foreach (var entity in _killFilter.Value)
-            {
-                ref var whip = ref _whipPool.Value.Get(entity);
-                whip.Transform.gameObject.SetActive(false);
-            }
-        }
-
-        private void OnProcess()
-        {
-            foreach (var entity in _processFilter.Value)
-            {
-                ref var whip = ref _whipPool.Value.Get(entity);
-
-                LayerMask mask = LayerMask.GetMask("Enemy");
-                RaycastHit2D[] hits = Physics2D.CircleCastAll(whip.Transform.position, 0.3f,
-                    whip.Transform.right, 2f, mask);
-
-                if (hits.Length <= 0) continue;
-
-                foreach (RaycastHit2D hit in hits)
-                {
-                    if (hit.transform.TryGetComponent(out EntityReference entityReference))
+                    for (int i = 0; i < skill.Level; i++)
                     {
-                        if (entityReference.Entity.Unpack(_world.Value, out int hitEntity))
-                        {
-                            _world.Value.DelEntity(hitEntity);
-                            GameObject.Destroy(entityReference.gameObject);
-                        }
+                        // TODO - projectile pool
+                        int projectileEntity = _world.Value.NewEntity();
+
+                        ref var projectileComponent = ref _projectilePool.Value.Add(projectileEntity);
+                        _firePool.Value.Add(projectileEntity);
+                        
+                        projectileComponent.GameObject = GameObject.Instantiate(skill.Data.ProjectilePrefab);
+                        projectileComponent.Duration = skill.Data.Duration;
+
+                        ref var userTf = ref _transformPool.Value.Get(userEntity);
+                        projectileComponent.GameObject.transform.position = userTf.BaseTf.position + Vector3.up * i * 0.5f;
+                        projectileComponent.GameObject.transform.right = userTf.BodyTf.right;
+                        if (i % 2 != 0) // flip every second projectile
+                            projectileComponent.GameObject.transform.right *= -1;
                     }
                 }
             }

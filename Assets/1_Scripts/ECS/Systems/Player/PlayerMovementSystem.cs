@@ -8,8 +8,10 @@ namespace Scripts.Ecs.Systems
     public class PlayerMovementSystem : IEcsInitSystem, IEcsRunSystem
     {
         private readonly EcsWorldInject _world = default;
-        private readonly EcsFilterInject<Inc<PlayerTag, MoverComponent>> _playerMoveEntities = default;
-        private readonly EcsPoolInject<MoverComponent> _moverPool = default;
+        private readonly EcsFilterInject<Inc<PlayerTag, TransformComponent, MoverComponent>> _playerMoveEntities = default;
+        
+        //private readonly EcsPoolInject<TransformComponent> _transformPool = default;
+        //private readonly EcsPoolInject<MoverComponent> _moverPool = default;
 
         public void Init(IEcsSystems systems)
         {
@@ -26,7 +28,8 @@ namespace Scripts.Ecs.Systems
         {
             foreach (int entity in _playerMoveEntities.Value)
             {
-                ref var mover = ref _moverPool.Value.Get(entity);
+                ref var transform = ref _playerMoveEntities.Pools.Inc2.Get(entity);
+                ref var mover = ref _playerMoveEntities.Pools.Inc3.Get(entity);
 
                 float h = Input.GetAxisRaw("Horizontal");
                 float v = Input.GetAxisRaw("Vertical");
@@ -36,12 +39,12 @@ namespace Scripts.Ecs.Systems
                 if (inputDir.sqrMagnitude == 0)
                     continue;
                 
-                // flip sprite
+                // flip body
                 if (h != 0)
-                    mover.Renderer.flipX = h < 0;
-                
+                    transform.BodyTf.right = h < 0 ? Vector3.left : Vector3.right;
+
                 mover.LookDirection = inputDir;
-                mover.Transform.Translate( inputDir * mover.Speed * Time.deltaTime);
+                transform.BaseTf.Translate( inputDir * mover.Speed * Time.deltaTime);
             }
         }
     }

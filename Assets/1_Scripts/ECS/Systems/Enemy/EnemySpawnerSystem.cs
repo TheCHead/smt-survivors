@@ -22,6 +22,7 @@ namespace Scripts.Ecs.Systems
 
                 if (_enemyEntities.Value.GetEntitiesCount() < spawner.Amount)
                 {
+                    // TODO - need to make a generic enemy factory
                      GameObject newGameObject = EcsConverter.InstantiateAndCreateEntity(spawner.EnemyPrefab, _world.Value);
                      newGameObject.transform.position = new Vector3(Random.Range(-10f, 10f), Random.Range(-8f, 8f), 0f);
                 }

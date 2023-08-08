@@ -1,5 +1,6 @@
 using System;
 using Leopotam.EcsLite;
+using Scripts.Data.Skills;
 using UnityEngine;
 
 namespace Scripts.Ecs.Components
@@ -7,8 +8,8 @@ namespace Scripts.Ecs.Components
     [Serializable]
     public struct SkillComponent
     {
-        public float Cooldown;
-        public float Duration;
+        public int Level;
+        public SkillSO Data;
         [HideInInspector]
         public float Lifetime;
         [HideInInspector]

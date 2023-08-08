@@ -21,9 +21,9 @@ namespace Scripts.Ecs.Startups
             _systems = new EcsSystems(_world);
 
             _systems.ConvertScene();
-            AddSystems();
-            //AddOneFrames();
             
+            AddSystems();
+
             _systems.Inject();
             _systems.Init();
         }
@@ -45,20 +45,11 @@ namespace Scripts.Ecs.Startups
                 .Add(new SkillUserSystem())
                 .Add(new SkillLifetimeSystem())
                 .Add(new WhipSystem())
-                
+                .Add(new ProjectileLifetimeSystem())
+
                 // one frame killers
-                .DelHere<FireSkillComponent>()
-                .DelHere<KillSkillComponent>();
-        }
-
-        private void AddOneFrames()
-        {
-            // no OneFrames in lite
-        }
-
-        private void Start()
-        {
-            AddOneFrames();
+                .DelHere<FireComponent>()
+                .DelHere<KillComponent>();
         }
 
         private void Update()

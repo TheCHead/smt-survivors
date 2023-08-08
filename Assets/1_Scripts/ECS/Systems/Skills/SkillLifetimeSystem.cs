@@ -9,21 +9,21 @@ namespace Scripts.Ecs.Systems
     {
         private readonly EcsWorldInject _world = default;
         private readonly EcsFilterInject<Inc<SkillComponent>, Exc<CooldownComponent>> _readyFilter = default;
-        private readonly EcsFilterInject<Inc<SkillComponent, FireSkillComponent>> _fireFilter = default;
-        private readonly EcsFilterInject<Inc<SkillComponent, ProcessSkillComponent>> _processFilter = default;
+        private readonly EcsFilterInject<Inc<SkillComponent, FireComponent>> _fireFilter = default;
+        //private readonly EcsFilterInject<Inc<SkillComponent, ProcessSkillComponent>> _processFilter = default;
             
         private readonly EcsPoolInject<SkillComponent> _skillPool = default; 
-        private readonly EcsPoolInject<FireSkillComponent> _firePool = default;
+        private readonly EcsPoolInject<FireComponent> _firePool = default;
         private readonly EcsPoolInject<ProcessSkillComponent> _processPool = default;
         private readonly EcsPoolInject<CooldownComponent> _cooldownPool = default;
-        private readonly EcsPoolInject<KillSkillComponent> _killPool = default;
+        //private readonly EcsPoolInject<KillComponent> _killPool = default;
         
 
         public void Run(IEcsSystems systems)
         {
             OnReady();
-            OnFire();
-            OnProcess();
+            //OnFire();
+            //OnProcess();
         }
 
         private void OnReady()
@@ -36,10 +36,11 @@ namespace Scripts.Ecs.Systems
                 // add Cooldown component
                 ref var cooldown = ref _cooldownPool.Value.Add(entity);
                 ref var skill = ref _skillPool.Value.Get(entity);
-                cooldown.CooldownTime = skill.Cooldown;
+                cooldown.CooldownTime = skill.Data.Cooldown;
             }
         }
 
+        // no need to process skills, but it's projectiles only
         private void OnFire()
         {
             foreach (int entity in _fireFilter.Value)
@@ -48,7 +49,8 @@ namespace Scripts.Ecs.Systems
             }
         }
         
-        private void OnProcess()
+        // commented as there's no need to kill skills, but it's projectiles only
+        /*private void OnProcess()
         {
             foreach (var entity in _processFilter.Value)
             {
@@ -56,13 +58,13 @@ namespace Scripts.Ecs.Systems
                 
                 skill.Lifetime += Time.deltaTime;
 
-                if (skill.Lifetime > skill.Duration)
+                if (skill.Lifetime > skill.Data.Duration)
                 {
                     _processPool.Value.Del(entity);
                     _killPool.Value.Add(entity);
                     skill.Lifetime = 0f;
                 }
             }
-        }
+        }*/
     }
 }

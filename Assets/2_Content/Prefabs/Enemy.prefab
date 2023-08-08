@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1383376892243695952}
   - component: {fileID: 5546505446316913621}
   - component: {fileID: 5857662922811987479}
+  - component: {fileID: 3271726990509833173}
   - component: {fileID: 8706560863882148851}
   m_Layer: 6
   m_Name: Enemy
@@ -55,6 +56,7 @@ MonoBehaviour:
   - {fileID: 8056021062664262119}
   - {fileID: 5857662922811987479}
   - {fileID: 8706560863882148851}
+  - {fileID: 3271726990509833173}
   _destroyAfterConversion: 0
 --- !u!114 &8056021062664262119
 MonoBehaviour:
@@ -166,6 +168,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _component:
     Reference: {fileID: 5546505446316913621}
+--- !u!114 &3271726990509833173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2625192725117266564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4eb66ed5a8046d98a43d41ada3eb037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _component:
+    BaseTf: {fileID: 4885837055989111826}
+    BodyTf: {fileID: 4936813121472785317}
 --- !u!114 &8706560863882148851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,9 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _component:
     Speed: 1
-    Transform: {fileID: 4885837055989111826}
     LookDirection: {x: 0, y: 0}
-    Renderer: {fileID: 3602689923037285363}
 --- !u!1 &3055257024793414668
 GameObject:
   m_ObjectHideFlags: 0

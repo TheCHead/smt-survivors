@@ -1,6 +1,6 @@
 namespace Scripts.Ecs.Components
 {
-    public struct FireSkillComponent
+    public struct KillComponent
     {
         
     }

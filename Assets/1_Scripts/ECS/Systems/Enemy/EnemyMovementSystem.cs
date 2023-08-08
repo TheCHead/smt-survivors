@@ -9,8 +9,10 @@ namespace Scripts.Ecs.Systems
     public class EnemyMovementSystem : IEcsRunSystem
     {
         private EcsWorldInject _world = default;
-        private EcsFilterInject<Inc<EnemyTag, MoverComponent>> _enemyMoverEntities = default;
-        private EcsPoolInject<MoverComponent> _moverPool = default;
+        private EcsFilterInject<Inc<EnemyTag, TransformComponent, MoverComponent>> _enemyMoverEntities = default;
+        
+        //private readonly EcsPoolInject<TransformComponent> _transformPool = default;
+        //private EcsPoolInject<MoverComponent> _moverPool = default;
 
         private Transform _playerTf;
 
@@ -23,12 +25,13 @@ namespace Scripts.Ecs.Systems
         {
             foreach (int entity in _enemyMoverEntities.Value)
             {
-                ref var mover = ref _enemyMoverEntities.Pools.Inc2.Get(entity);
-                mover.LookDirection = (_playerTf.position - mover.Transform.position).normalized;
-
-                mover.Renderer.flipX = mover.LookDirection.x < 0;
+                ref var transform = ref _enemyMoverEntities.Pools.Inc2.Get(entity);
+                ref var mover = ref _enemyMoverEntities.Pools.Inc3.Get(entity);
                 
-                mover.Transform.Translate(mover.LookDirection * mover.Speed * Time.deltaTime);
+                mover.LookDirection = (_playerTf.position - transform.BaseTf.position).normalized;
+
+                transform.BodyTf.right = mover.LookDirection.x < 0 ? Vector3.left : Vector3.right;
+                transform.BaseTf.Translate(mover.LookDirection * mover.Speed * Time.deltaTime);
             }
         }
     }
