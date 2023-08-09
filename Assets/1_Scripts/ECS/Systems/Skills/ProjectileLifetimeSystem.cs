@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Scripts.Ecs.Components;
@@ -32,7 +33,13 @@ namespace Scripts.Ecs.Systems
                 
                 ref var projectile = ref _projectilePool.Value.Get(entity);
 
-                projectile.GameObject.transform.right = projectile.Direction;
+                projectile.GameObject.transform.DOScale(Vector3.zero, projectile.Duration / 2f).From();
+
+                if (projectile.Renderer != null)
+                {
+                    projectile.Renderer.DOFade(0, projectile.Duration * 0.5f).SetDelay(projectile.Duration * 0.5f);
+                }
+
                 projectile.GameObject.SetActive(true);
                 
                 
@@ -45,6 +52,12 @@ namespace Scripts.Ecs.Systems
 
                 foreach (RaycastHit2D hit in hits)
                 {
+                    /*if (hit.transform.TryGetComponent(out Rigidbody2D rb))
+                    {
+                        rb.AddForce(projectile.Direction, ForceMode2D.Impulse);
+                        continue;
+                    }*/
+                    
                     if (hit.transform.TryGetComponent(out EntityReference entityReference))
                     {
                         if (entityReference.Entity.Unpack(_world.Value, out int hitEntity))
