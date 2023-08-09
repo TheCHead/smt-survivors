@@ -11,8 +11,6 @@ namespace Scripts.Ecs.Components
         public int Level;
         public SkillSO Data;
         [HideInInspector]
-        public float Lifetime;
-        [HideInInspector]
         public EcsPackedEntity UserEntity;
     }
 }

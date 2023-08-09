@@ -17,7 +17,6 @@ namespace Scripts.Ecs.Systems
         private readonly EcsPoolInject<KillComponent> _killPool = default;
 
         
-
         public void Run(IEcsSystems systems)
         {
             OnShoot();
@@ -36,8 +35,10 @@ namespace Scripts.Ecs.Systems
                 projectile.GameObject.transform.right = projectile.Direction;
                 projectile.GameObject.SetActive(true);
                 
+                
+                // TODO - try replacing raycasts with on trigger enter
                 LayerMask mask = LayerMask.GetMask("Enemy");
-                RaycastHit2D[] hits = Physics2D.CircleCastAll(projectile.GameObject.transform.position, 0.3f,
+                RaycastHit2D[] hits = Physics2D.CircleCastAll(projectile.GameObject.transform.position, 0.75f,
                     projectile.GameObject.transform.right, 2f, mask);
 
                 if (hits.Length <= 0) continue;
@@ -77,7 +78,8 @@ namespace Scripts.Ecs.Systems
             {
                 ref var projectile = ref _projectilePool.Value.Get(entity);
                 
-                projectile.GameObject.gameObject.SetActive(false);
+                // TODO - return to projectile pool
+                Object.Destroy(projectile.GameObject);
 
                 _world.Value.DelEntity(entity);
             }

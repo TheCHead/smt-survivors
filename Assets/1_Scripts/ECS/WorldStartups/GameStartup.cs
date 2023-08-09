@@ -48,7 +48,7 @@ namespace Scripts.Ecs.Startups
                 .Add(new WhipSystem())
                 .Add(new ProjectileLifetimeSystem())
 
-                // one frame killers
+                // one-frame killers
                 .DelHere<FireSkillComponent>()
                 .DelHere<KillComponent>();
         }

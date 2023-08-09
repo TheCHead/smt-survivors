@@ -7,6 +7,6 @@ namespace Scripts.Ecs.Components
     [Serializable]
     public struct WhipComponent
     {
-        public Transform Transform;
+        
     }
 }

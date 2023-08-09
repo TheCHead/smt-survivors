@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Whip
   m_EditorClassIdentifier: 
   ProjectilePrefab: {fileID: 2691959840578720134, guid: 98ec7cd192ff64313aef8c433a0e16c8, type: 3}
+  Projectiles: 4
   Cooldown: 1
   Duration: 0.15

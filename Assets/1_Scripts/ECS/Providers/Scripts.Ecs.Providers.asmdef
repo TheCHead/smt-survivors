@@ -1,8 +1,9 @@
 {
-    "name": "EcsUtility",
+    "name": "Scripts.Ecs.Providers",
     "rootNamespace": "",
     "references": [
-        "GUID:e59bf9fc7d5a44b18a819a92edd46163"
+        "GUID:2c0ffbc63bb494ecbb4fd056acaa6613",
+        "GUID:6edd76a60c59af6479735feb61d29472"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

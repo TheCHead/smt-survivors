@@ -7,15 +7,16 @@ namespace Scripts.Ecs.Systems
 {
     public class SkillLifetimeSystem : IEcsRunSystem
     {
-        private readonly EcsWorldInject _world = default;
+        //private readonly EcsWorldInject _world = default;
         private readonly EcsFilterInject<Inc<SkillComponent>, Exc<CooldownComponent>> _readyFilter = default;
-        private readonly EcsFilterInject<Inc<SkillComponent, FireSkillComponent>> _fireFilter = default;
+        //private readonly EcsFilterInject<Inc<SkillComponent, FireSkillComponent>> _fireFilter = default;
         //private readonly EcsFilterInject<Inc<SkillComponent, ProcessSkillComponent>> _processFilter = default;
-            
-        private readonly EcsPoolInject<SkillComponent> _skillPool = default; 
+          
         private readonly EcsPoolInject<FireSkillComponent> _firePool = default;
-        private readonly EcsPoolInject<ProcessSkillComponent> _processPool = default;
         private readonly EcsPoolInject<CooldownComponent> _cooldownPool = default;
+        
+        //private readonly EcsPoolInject<SkillComponent> _skillPool = default; 
+        //private readonly EcsPoolInject<ProcessSkillComponent> _processPool = default;
         //private readonly EcsPoolInject<KillComponent> _killPool = default;
         
 
@@ -35,19 +36,19 @@ namespace Scripts.Ecs.Systems
                 
                 // add Cooldown component
                 ref var cooldown = ref _cooldownPool.Value.Add(entity);
-                ref var skill = ref _skillPool.Value.Get(entity);
+                ref var skill = ref _readyFilter.Pools.Inc1.Get(entity);
                 cooldown.CooldownTime = skill.Data.Cooldown;
             }
         }
 
-        // no need to process skills, but it's projectiles only
-        private void OnFire()
+        // commented as there's no need to process skills, but it's projectiles only
+        /*private void OnFire()
         {
             foreach (int entity in _fireFilter.Value)
             {
                 _processPool.Value.Add(entity);
             }
-        }
+        }*/
         
         // commented as there's no need to kill skills, but it's projectiles only
         /*private void OnProcess()

@@ -1,10 +1,7 @@
 {
-    "name": "Providers",
+    "name": "Scripts.Data",
     "rootNamespace": "",
-    "references": [
-        "GUID:2c0ffbc63bb494ecbb4fd056acaa6613",
-        "GUID:6edd76a60c59af6479735feb61d29472"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

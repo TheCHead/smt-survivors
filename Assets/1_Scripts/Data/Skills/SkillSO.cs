@@ -7,6 +7,7 @@ namespace Scripts.Data.Skills
     public class SkillSO : ScriptableObject
     {
         public GameObject ProjectilePrefab;
+        public int Projectiles;
         public float Cooldown;
         public float Duration;
     }
