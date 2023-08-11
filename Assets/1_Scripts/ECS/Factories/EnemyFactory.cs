@@ -12,7 +12,7 @@ namespace Scripts.Ecs.Factories
 {
     public class EnemyFactory
     {
-        private Dictionary<Type, ObjectPool<GameObject>> _enemyPoolDict = new();
+        private static Dictionary<Type, ObjectPool<GameObject>> _enemyPoolDict = new();
         
         public EcsPackedEntity GetEnemy<T>(EcsWorld world, EnemySO enemyConfig) where T : struct
         {
@@ -22,7 +22,7 @@ namespace Scripts.Ecs.Factories
             world.GetPool<T>().Add(newEnemyEntity);
             // add enemy tag
             world.GetPool<EnemyTag>().Add(newEnemyEntity);
-            // add and config mover
+            // add and configure mover
             ref var mover = ref world.GetPool<MoverComponent>().Add(newEnemyEntity);
             mover.Speed = enemyConfig.Speed;
             
@@ -33,14 +33,17 @@ namespace Scripts.Ecs.Factories
                 _enemyPoolDict[typeof(T)] = GetNewObjectPool(enemyConfig.Prefab);
             }
 
+            // add and configure transform component
             GameObject newGo = _enemyPoolDict[typeof(T)].Get();
             ref var enemyTf = ref world.GetPool<TransformComponent>().Add(newEnemyEntity);
             enemyTf.BaseTf = newGo.transform;
             enemyTf.BodyTf = newGo.transform.GetChild(0);
 
+            // add initialize entity reference request
             ref var initRequest = ref world.GetPool<InitEntityReferenceRequest>().Add(newEnemyEntity);
             initRequest.Reference = enemyTf.BaseTf.GetComponent<EntityReference>();
 
+            // return packed entity
             return world.PackEntity(newEnemyEntity);
         }
 

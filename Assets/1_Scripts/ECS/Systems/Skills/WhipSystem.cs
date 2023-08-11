@@ -1,7 +1,9 @@
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Scripts.Ecs.Components;
+using Scripts.Ecs.Factories;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace Scripts.Ecs.Systems
 {
@@ -36,19 +38,16 @@ namespace Scripts.Ecs.Systems
                 // TODO - skill level-up config (use Odin?)
                 for (int i = 0; i < skill.Data.Projectiles; i++)
                 {
-                    // TODO - projectile pool
-                    // create projectile entity
-                    int projectileEntity = _world.Value.NewEntity();
+                    int projectileEntity = ProjectileFactory<WhipComponent>.GetProjectile(_world.Value, skill.Data);
                         
                     // add shoot component with delay
                     _shootPool.Value.Add(projectileEntity);
                     ref var delay = ref _delayPool.Value.Add(projectileEntity);
                     delay.Delay = 0.1f * i;
 
-                    // add and configure projectile component
-                    ref var projectileComponent = ref _projectilePool.Value.Add(projectileEntity);
-                    projectileComponent.Transform = Object.Instantiate(skill.Data.ProjectilePrefab).transform;
-                    projectileComponent.Duration = skill.Data.Duration;
+                    // configure projectile component
+                    ref var projectileComponent = ref _projectilePool.Value.Get(projectileEntity);
+
                     projectileComponent.Renderer = projectileComponent.Transform.GetComponentInChildren<SpriteRenderer>();
                         
                     // configure projectile with skill user data
