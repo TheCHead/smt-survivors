@@ -38,15 +38,15 @@ namespace Scripts.Ecs.Startups
                 // player
                 .Add(new PlayerMovementSystem())
                 
-                // enemies
-                .Add(new EnemySpawnerSystem())
-                .Add(new EnemyMovementSystem(player))
-                
                 // skills
                 .Add(new SkillUserSystem())
                 .Add(new SkillLifetimeSystem())
                 .Add(new WhipSystem())
                 .Add(new ProjectileLifetimeSystem())
+                
+                // enemies
+                .Add(new EnemySpawnerSystem())
+                .Add(new EnemyMovementSystem(player))
 
                 // one-frame killers
                 .DelHere<FireSkillComponent>()

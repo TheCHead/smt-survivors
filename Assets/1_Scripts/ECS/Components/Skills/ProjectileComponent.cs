@@ -7,7 +7,7 @@ namespace Scripts.Ecs.Components
         public float Duration;
         public float Lifetime;
         public Vector2 Direction;
-        public GameObject GameObject;
+        public Transform Transform;
         public SpriteRenderer Renderer;
     }
 }

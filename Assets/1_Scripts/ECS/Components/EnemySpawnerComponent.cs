@@ -1,4 +1,5 @@
 using System;
+using Scripts.Data.Enemies;
 using UnityEngine;
 
 namespace Scripts.Ecs.Components
@@ -6,7 +7,7 @@ namespace Scripts.Ecs.Components
     [Serializable]
     public struct EnemySpawnerComponent
     {
-        public GameObject EnemyPrefab;
+        public EnemySO EnemyData;
         public int Amount;
     }
 }

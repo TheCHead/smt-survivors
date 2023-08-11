@@ -22,8 +22,7 @@ namespace Scripts.Ecs.Factories
             skillComponent.UserEntity = world.PackEntity(userEntity);
                 
             // add skill extension
-            EcsPool<T> extensionPool = world.GetPool<T>();
-            extensionPool.Add(skillEntity);
+            world.GetPool<T>().Add(skillEntity);
 
             return world.PackEntity(skillEntity);
         }

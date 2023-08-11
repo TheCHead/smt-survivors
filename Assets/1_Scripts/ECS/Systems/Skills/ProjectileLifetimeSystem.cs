@@ -33,20 +33,20 @@ namespace Scripts.Ecs.Systems
                 
                 ref var projectile = ref _projectilePool.Value.Get(entity);
 
-                projectile.GameObject.transform.DOScale(Vector3.zero, projectile.Duration / 2f).From();
+                projectile.Transform.DOScale(Vector3.zero, projectile.Duration / 2f).From();
 
                 if (projectile.Renderer != null)
                 {
                     projectile.Renderer.DOFade(0, projectile.Duration * 0.5f).SetDelay(projectile.Duration * 0.5f);
                 }
 
-                projectile.GameObject.SetActive(true);
+                projectile.Transform.gameObject.SetActive(true);
                 
                 
                 // TODO - try replacing raycasts with on trigger enter
                 LayerMask mask = LayerMask.GetMask("Enemy");
-                RaycastHit2D[] hits = Physics2D.CircleCastAll(projectile.GameObject.transform.position, 0.75f,
-                    projectile.GameObject.transform.right, 2f, mask);
+                RaycastHit2D[] hits = Physics2D.CircleCastAll(projectile.Transform.position, 0.75f,
+                    projectile.Transform.right, 2f, mask);
 
                 if (hits.Length <= 0) continue;
 
@@ -62,8 +62,7 @@ namespace Scripts.Ecs.Systems
                     {
                         if (entityReference.Entity.Unpack(_world.Value, out int hitEntity))
                         {
-                            _world.Value.DelEntity(hitEntity);
-                            GameObject.Destroy(entityReference.gameObject);
+                            _world.Value.GetPool<KillComponent>().Add(hitEntity);
                         }
                     }
                 }
@@ -92,7 +91,7 @@ namespace Scripts.Ecs.Systems
                 ref var projectile = ref _projectilePool.Value.Get(entity);
                 
                 // TODO - return to projectile pool
-                Object.Destroy(projectile.GameObject);
+                Object.Destroy(projectile.Transform.gameObject);
 
                 _world.Value.DelEntity(entity);
             }
