@@ -10,9 +10,6 @@ namespace Scripts.Ecs.Systems
     {
         private EcsWorldInject _world = default;
         private EcsFilterInject<Inc<EnemyTag, TransformComponent, MoverComponent>> _enemyMoverEntities = default;
-        
-        //private readonly EcsPoolInject<TransformComponent> _transformPool = default;
-        //private EcsPoolInject<MoverComponent> _moverPool = default;
 
         private Transform _playerTf;
 

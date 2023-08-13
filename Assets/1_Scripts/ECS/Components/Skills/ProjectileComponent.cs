@@ -4,6 +4,7 @@ namespace Scripts.Ecs.Components
 {
     public struct ProjectileComponent
     {
+        public float Damage;
         public float Duration;
         public float Lifetime;
         public Vector2 Direction;

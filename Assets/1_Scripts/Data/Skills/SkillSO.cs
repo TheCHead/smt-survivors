@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Scripts.Data.Skills
 {
@@ -10,5 +9,6 @@ namespace Scripts.Data.Skills
         public int Projectiles;
         public float Cooldown;
         public float Duration;
+        public float Damage;
     }
 }

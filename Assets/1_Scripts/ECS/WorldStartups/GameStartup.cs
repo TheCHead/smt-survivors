@@ -47,10 +47,13 @@ namespace Scripts.Ecs.Startups
                 // enemies
                 .Add(new EnemySpawnerSystem())
                 .Add(new EnemyMovementSystem(player))
+                
+                .Add(new LifeSystem())
 
                 // one-frame killers
                 .DelHere<FireSkillComponent>()
-                .DelHere<KillComponent>();
+                //.DelHere<KillComponent>()
+                .DelHere<DamageComponent>();
         }
 
         private void Update()

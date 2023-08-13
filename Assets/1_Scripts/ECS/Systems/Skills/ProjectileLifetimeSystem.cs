@@ -66,7 +66,9 @@ namespace Scripts.Ecs.Systems
                     {
                         if (entityReference.Entity.Unpack(_world.Value, out int hitEntity))
                         {
-                            _world.Value.GetPool<KillComponent>().Add(hitEntity);
+                            //_world.Value.GetPool<KillComponent>().Add(hitEntity);
+                            ref var damage = ref _world.Value.GetPool<DamageComponent>().Add(hitEntity);
+                            damage.DamagePoints = projectile.Damage;
                         }
                     }
                 }
@@ -92,8 +94,6 @@ namespace Scripts.Ecs.Systems
         {
             foreach (var entity in _killFilter.Value)
             {
-                ref var projectile = ref _projectilePool.Value.Get(entity);
-
                 ProjectileFactory<WhipComponent>.ReleaseProjectile(_world.Value, entity);
             }
         }

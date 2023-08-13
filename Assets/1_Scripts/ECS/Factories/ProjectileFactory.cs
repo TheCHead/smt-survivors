@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
 using Leopotam.EcsLite;
 using Scripts.Data.Skills;
 using Scripts.Ecs.Components;
-using UnityEngine;
 using UnityEngine.Pool;
 using GameObject = UnityEngine.GameObject;
 using Object = UnityEngine.Object;
@@ -26,6 +23,7 @@ namespace Scripts.Ecs.Factories
             
             ref var projectileComponent = ref world.GetPool<ProjectileComponent>().Add(projectileEntity);
             projectileComponent.Transform = _projectilePool.Get().transform;
+            projectileComponent.Damage = skillSo.Damage;
             projectileComponent.Duration = skillSo.Duration;
             
             return projectileEntity;

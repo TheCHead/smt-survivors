@@ -7,5 +7,6 @@ namespace Scripts.Data.Enemies
     {
         public GameObject Prefab;
         public float Speed;
+        public float HealthPoints;
     }
 }

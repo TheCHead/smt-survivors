@@ -26,6 +26,10 @@ namespace Scripts.Ecs.Factories
             ref var mover = ref world.GetPool<MoverComponent>().Add(newEnemyEntity);
             mover.Speed = enemyConfig.Speed;
             
+            // add and configure damage receiver
+            ref var life = ref world.GetPool<LifeComponent>().Add(newEnemyEntity);
+            life.HealthPoints = enemyConfig.HealthPoints;
+            
             // check if no pool available for type of T
             if (!_enemyPoolDict.ContainsKey(typeof(T)))
             {

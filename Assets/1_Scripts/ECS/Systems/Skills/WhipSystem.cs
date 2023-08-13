@@ -3,7 +3,6 @@ using Leopotam.EcsLite.Di;
 using Scripts.Ecs.Components;
 using Scripts.Ecs.Factories;
 using UnityEngine;
-using UnityEngine.Pool;
 
 namespace Scripts.Ecs.Systems
 {

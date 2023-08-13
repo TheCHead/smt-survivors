@@ -1,7 +1,6 @@
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Scripts.Ecs.Components;
-using UnityEngine;
 
 namespace Scripts.Ecs.Systems
 {
