@@ -40,7 +40,10 @@ namespace Scripts.Ecs.Systems
                     {
                         ref var enemyTf = ref _world.Value.GetPool<TransformComponent>().Get(enemyEntity);
                         
-                        enemyTf.BaseTf.position = new Vector3(Random.Range(-10f, 10f), Random.Range(-8f, 8f), 0f);
+                        enemyTf.BaseTf.position = spawner.Origin + new Vector3(
+                            Random.Range(-spawner.XRange, spawner.XRange), 
+                            Random.Range(-spawner.YRange, spawner.YRange), 
+                            0f);
                     }
                    
                     // set spawner cooldown

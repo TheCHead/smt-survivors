@@ -10,5 +10,6 @@ namespace Scripts.Data.Skills
         public float Cooldown;
         public float Duration;
         public float Damage;
+        public float Pushback;
     }
 }

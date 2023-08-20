@@ -23,9 +23,9 @@ namespace Scripts.Ecs.Factories
             // add enemy tag
             world.GetPool<EnemyTag>().Add(newEnemyEntity);
             // add and configure mover
-            ref var mover = ref world.GetPool<MoverComponent>().Add(newEnemyEntity);
+            ref var mover = ref world.GetPool<TopDownMoverComponent>().Add(newEnemyEntity);
             mover.Speed = enemyConfig.Speed;
-            
+
             // add and configure damage receiver
             ref var life = ref world.GetPool<LifeComponent>().Add(newEnemyEntity);
             life.HealthPoints = enemyConfig.HealthPoints;
@@ -42,6 +42,8 @@ namespace Scripts.Ecs.Factories
             ref var enemyTf = ref world.GetPool<TransformComponent>().Add(newEnemyEntity);
             enemyTf.BaseTf = newGo.transform;
             enemyTf.BodyTf = newGo.transform.GetChild(0);
+
+            mover.Rigidbody = enemyTf.BaseTf.GetComponent<Rigidbody2D>();
 
             // add initialize entity reference request
             ref var initRequest = ref world.GetPool<InitEntityReferenceRequest>().Add(newEnemyEntity);

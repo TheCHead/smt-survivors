@@ -56,19 +56,14 @@ namespace Scripts.Ecs.Systems
 
                 foreach (RaycastHit2D hit in hits)
                 {
-                    /*if (hit.transform.TryGetComponent(out Rigidbody2D rb))
-                    {
-                        rb.AddForce(projectile.Direction, ForceMode2D.Impulse);
-                        continue;
-                    }*/
-                    
                     if (hit.transform.TryGetComponent(out EntityReference entityReference))
                     {
                         if (entityReference.Entity.Unpack(_world.Value, out int hitEntity))
                         {
-                            //_world.Value.GetPool<KillComponent>().Add(hitEntity);
                             ref var damage = ref _world.Value.GetPool<DamageComponent>().Add(hitEntity);
                             damage.DamagePoints = projectile.Damage;
+                            damage.DamageDir = (hit.transform.position - projectile.Transform.position).normalized;
+                            damage.Pushback = projectile.Pushback;
                         }
                     }
                 }

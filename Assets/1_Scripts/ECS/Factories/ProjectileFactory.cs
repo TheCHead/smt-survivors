@@ -25,6 +25,7 @@ namespace Scripts.Ecs.Factories
             projectileComponent.Transform = _projectilePool.Get().transform;
             projectileComponent.Damage = skillSo.Damage;
             projectileComponent.Duration = skillSo.Duration;
+            projectileComponent.Pushback = skillSo.Pushback;
             
             return projectileEntity;
         }
