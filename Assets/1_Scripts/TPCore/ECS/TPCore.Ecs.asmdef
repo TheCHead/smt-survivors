@@ -1,0 +1,21 @@
+{
+    "name": "TPCore.Ecs",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e59bf9fc7d5a44b18a819a92edd46163",
+        "GUID:6edd76a60c59af6479735feb61d29472",
+        "GUID:e06a58708b83247ca9dc984644f5b40b",
+        "GUID:f5f01a091e0d746659b4380253d52f4e",
+        "GUID:0a03c5ab868404a5489cb50e72969bbe",
+        "GUID:5d06ce0900198422c8d5f3cec4f40585"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
