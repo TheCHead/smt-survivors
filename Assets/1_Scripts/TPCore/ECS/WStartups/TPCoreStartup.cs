@@ -1,4 +1,5 @@
 using AB_Utility.FromSceneToEntityConverter;
+using Common.Ecs.Components;
 using Common.Ecs.Systems;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
@@ -46,7 +47,7 @@ namespace TPCore.Ecs.Startups
                 
                 // enemies
                 .Add(new EnemySpawnerSystem())
-                //.Add(new TopDownEnemyMovementSystem(player))
+                .Add(new EnemyMovementSystem(player))
                 
                 //.Add(new LifeSystem())
 
@@ -54,6 +55,7 @@ namespace TPCore.Ecs.Startups
                 //.DelHere<FireSkillComponent>()
                 //.DelHere<KillComponent>()
                 //.DelHere<DamageComponent>()
+                .DelHere<BornEvent>()
                 ;
         }
 

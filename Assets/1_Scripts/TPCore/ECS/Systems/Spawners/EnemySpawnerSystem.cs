@@ -2,6 +2,7 @@ using Common.Ecs.Components;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using TPCore.Ecs.Components;
+using TPCore.Ecs.Factories;
 using UnityEngine;
 
 namespace TPCore.Ecs.Systems
@@ -16,16 +17,16 @@ namespace TPCore.Ecs.Systems
         
         private readonly EcsPoolInject<EnemySpawnerComponent> _spawnerPool = default;
         
-        //private readonly EnemyFactory _enemyFactory = new();
+        private readonly EnemyFactory _enemyFactory = new();
 
         public void Init(IEcsSystems systems)
         {
-            OnSpawn();
+            //OnSpawn();
         }
 
         public void Run(IEcsSystems systems)
         {
-            //OnSpawn();
+            OnSpawn();
             //OnKill();
         }
 
@@ -35,28 +36,17 @@ namespace TPCore.Ecs.Systems
             {
                 ref var spawner = ref _spawnerPool.Value.Get(entity);
 
-                for (int i = 0; i < spawner.Amount; i++)
-                {
-                    GameObject enemyGo = Object.Instantiate(spawner.EnemyData.Prefab);
-                    
-                    enemyGo.transform.position = spawner.Origin.position + new Vector3(
-                        Random.Range(-spawner.XRange, spawner.XRange), 
-                        Random.Range(-spawner.YRange, spawner.YRange), 
-                        0f);
-                }
-                
-                
                 if (_enemyEntities.Value.GetEntitiesCount() < spawner.Amount)
                 {
-                    /*// get enemy of type of T from factory
-                    EcsPackedEntity enemyPacked = _enemyFactory.GetEnemy<BlackFrostComponent>(_world.Value, spawner.EnemyData);
+                    // get enemy of type of T from factory
+                    EcsPackedEntity enemyPacked = _enemyFactory.GetEnemy<BFrostComponent>(_world.Value, spawner.EnemyData);
 
                     // configure entity
                     if (enemyPacked.Unpack(_world.Value, out int enemyEntity))
                     {
                         ref var enemyTf = ref _world.Value.GetPool<TransformComponent>().Get(enemyEntity);
                         
-                        enemyTf.BaseTf.position = spawner.Origin + new Vector3(
+                        enemyTf.BaseTf.position = spawner.Origin.position + new Vector3(
                             Random.Range(-spawner.XRange, spawner.XRange), 
                             Random.Range(-spawner.YRange, spawner.YRange), 
                             0f);
@@ -64,7 +54,7 @@ namespace TPCore.Ecs.Systems
                    
                     // set spawner cooldown
                     ref var cooldown = ref _world.Value.GetPool<CooldownComponent>().Add(entity);
-                    cooldown.CooldownTime = 0.25f;*/
+                    cooldown.CooldownTime = 0.5f;
                 }
             }
         }

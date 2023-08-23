@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: BFrost
   m_EditorClassIdentifier: 
   Prefab: {fileID: 2625192725117266564, guid: cac0c9326a51840708a88ac92f1fdfd8, type: 3}
-  Speed: 2
+  Speed: 1
   HealthPoints: 20
+  ReachTime: 10

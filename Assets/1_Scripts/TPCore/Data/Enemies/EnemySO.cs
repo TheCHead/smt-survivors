@@ -8,5 +8,6 @@ namespace TPCore.Data.Enemies
         public GameObject Prefab;
         public float Speed;
         public float HealthPoints;
+        public float ReachTime;
     }
 }
