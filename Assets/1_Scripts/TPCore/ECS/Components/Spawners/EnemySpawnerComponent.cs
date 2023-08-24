@@ -12,6 +12,7 @@ namespace TPCore.Ecs.Components
         public Transform Origin;
         public float XRange;
         public float YRange;
+        public float Cooldown;
     }
 }
 

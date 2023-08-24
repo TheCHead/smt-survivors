@@ -4,6 +4,7 @@ using Leopotam.EcsLite.Di;
 using TPCore.Ecs.Components;
 using TPCore.Ecs.Factories;
 using UnityEngine;
+using DG.Tweening;
 
 namespace TPCore.Ecs.Systems
 {
@@ -13,9 +14,12 @@ namespace TPCore.Ecs.Systems
         
         private readonly EcsFilterInject<Inc<EnemySpawnerComponent>, Exc<CooldownComponent>> _spawnerEntities = default;
         private readonly EcsFilterInject<Inc<EnemyTag>> _enemyEntities = default;
-        //private readonly EcsFilterInject<Inc<EnemyTag, KillComponent>> _killedEntities = default;
+
+        private readonly EcsFilterInject<Inc<EnemyTag, KillComponent>> _killedEntities = default;
+        
         
         private readonly EcsPoolInject<EnemySpawnerComponent> _spawnerPool = default;
+        private readonly EcsPoolInject<EnemyMoverComponent> _moverPool = default;
         
         private readonly EnemyFactory _enemyFactory = new();
 
@@ -27,7 +31,7 @@ namespace TPCore.Ecs.Systems
         public void Run(IEcsSystems systems)
         {
             OnSpawn();
-            //OnKill();
+            OnKill();
         }
 
         private void OnSpawn()
@@ -54,18 +58,21 @@ namespace TPCore.Ecs.Systems
                    
                     // set spawner cooldown
                     ref var cooldown = ref _world.Value.GetPool<CooldownComponent>().Add(entity);
-                    cooldown.CooldownTime = 0.5f;
+                    cooldown.CooldownTime = spawner.Cooldown;
                 }
             }
         }
 
-        /*private void OnKill()
+        private void OnKill()
         {
             foreach (int entity in _killedEntities.Value)
             {
                 // TODO - make enemy kill system instead
-                _enemyFactory.ReleaseEnemy<BlackFrostComponent>(_world.Value, entity);
+                _moverPool.Value.Get(entity).ReachTween.Kill();
+                _moverPool.Value.Get(entity).ScaleTween.Kill();
+                _moverPool.Value.Get(entity).ColorTween.Kill();
+                _enemyFactory.ReleaseEnemy<BFrostComponent>(_world.Value, entity);
             }
-        }*/
+        }
     }
 }

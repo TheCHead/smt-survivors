@@ -9,6 +9,8 @@ namespace TPCore.Ecs.Components
         public float Speed;
         public float ReachTime;
         public Tween ReachTween;
+        public Tween ScaleTween;
+        public Tween ColorTween;
     }
 }
 

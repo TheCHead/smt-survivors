@@ -4,6 +4,7 @@ using Common.Ecs.Systems;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.ExtendedSystems;
+using TPCore.Ecs.Components;
 using TPCore.Ecs.Systems;
 using UnityEngine;
 
@@ -40,21 +41,19 @@ namespace TPCore.Ecs.Startups
                 .Add(new PlayerMovementSystem())
                 
                 // skills
-                //.Add(new SkillUserSystem())
-                //.Add(new SkillLifetimeSystem())
-                //.Add(new WhipSystem())
-                //.Add(new ProjectileLifetimeSystem())
+                .Add(new SkillUserSystem())
+                .Add(new SkillLifetimeSystem())
+                .Add(new SlashSystem())
+                .Add(new ProjectileLifetimeSystem())
                 
                 // enemies
                 .Add(new EnemySpawnerSystem())
                 .Add(new EnemyMovementSystem(player))
                 
-                //.Add(new LifeSystem())
+                .Add(new LifeSystem())
 
                 // one-frame killers
-                //.DelHere<FireSkillComponent>()
-                //.DelHere<KillComponent>()
-                //.DelHere<DamageComponent>()
+                .DelHere<DamageComponent>()
                 .DelHere<BornEvent>()
                 ;
         }

@@ -44,9 +44,11 @@ namespace TPCore.Ecs.Systems
 
                 mover.ReachTween = transform.BaseTf.DOMove(targetPos, mover.ReachTime).SetEase(Ease.Linear);
                 SpriteRenderer sprite = transform.BodyTf.GetComponent<SpriteRenderer>();
-                sprite.DOColor(Color.black, mover.ReachTime).From().SetEase(Ease.Linear);
-                transform.BodyTf.DOScale(Vector3.one * 0.25f, mover.ReachTime).From().SetEase(Ease.Linear);
-                transform.BodyTf.DOBlendableScaleBy(Vector3.one * 0.05f, 0.5f).SetLoops(-1, LoopType.Yoyo);
+                sprite.color = Color.black;
+                mover.ColorTween = sprite.DOColor(Color.white, mover.ReachTime).SetEase(Ease.Linear);
+                transform.BodyTf.localScale = Vector3.one;
+                mover.ScaleTween = transform.BodyTf.DOScale(Vector3.one * 0.5f, mover.ReachTime).From().SetEase(Ease.Linear);
+                //transform.BodyTf.DOBlendableScaleBy(Vector3.one * 0.05f, 0.5f).SetLoops(-1, LoopType.Yoyo);
             }
         }
         
