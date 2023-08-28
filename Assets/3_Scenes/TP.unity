@@ -351,6 +351,7 @@ GameObject:
   - component: {fileID: 919165063}
   - component: {fileID: 919165066}
   - component: {fileID: 919165067}
+  - component: {fileID: 919165068}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -469,6 +470,7 @@ MonoBehaviour:
   - {fileID: 919165063}
   - {fileID: 919165066}
   - {fileID: 919165067}
+  - {fileID: 919165068}
   _destroyAfterConversion: 0
 --- !u!114 &919165066
 MonoBehaviour:
@@ -499,6 +501,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _component:
     SkillData: {fileID: 11400000, guid: ff697bc0728aa4b4a8d827558b0642c3, type: 2}
+--- !u!114 &919165068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919165060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 502ef94104312426e90f453b57f182da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1093812895
 GameObject:
   m_ObjectHideFlags: 0

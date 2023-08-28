@@ -38,6 +38,8 @@ namespace TPCore.Ecs.Startups
                 .Add(new DelaySystem())
                 
                 // player
+                .Add(new PlayerInputSystem())
+                .Add(new CommandResolverSystem())
                 .Add(new PlayerMovementSystem())
                 
                 // skills
@@ -53,8 +55,12 @@ namespace TPCore.Ecs.Startups
                 .Add(new LifeSystem())
 
                 // one-frame killers
+                .DelHere<PlayerInputComponent>()
                 .DelHere<DamageComponent>()
                 .DelHere<BornEvent>()
+                // del player commands
+                .DelHere<MoveCommand>()
+                .DelHere<DashCommand>()
                 ;
         }
 

@@ -50,8 +50,8 @@ namespace TPCore.Ecs.Systems
                 
                 // TODO - try replacing raycasts with on trigger enter
                 LayerMask mask = LayerMask.GetMask("Enemy");
-                RaycastHit2D[] hits = Physics2D.CircleCastAll(projectile.Transform.position, 2f,
-                    Vector2.up, 1f, mask);
+                RaycastHit2D[] hits = Physics2D.CircleCastAll(projectile.Transform.position, 0.5f,
+                    Vector2.up, 0.1f, mask);
 
                 if (hits.Length <= 0) continue;
 

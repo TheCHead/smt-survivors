@@ -54,7 +54,7 @@ namespace TPCore.Ecs.Systems
                         
                     // configure projectile with skill user data
                     projectileComponent.Transform.parent = userTf.BaseTf;
-                    projectileComponent.Transform.localPosition = Vector3.up * i * 0.5f;
+                    projectileComponent.Transform.localPosition = Vector3.up * 2f + Vector3.up * i * 0.5f;
                     projectileComponent.Direction = userTf.BodyTf.right;
                         
                     Quaternion rot = Quaternion.identity;
