@@ -11,6 +11,7 @@ namespace TPCore.Ecs.Components
         public float HDeltaR;
         public float VDeltaR;
         public bool Dash;
+        public bool Block;
     }
 }
 

@@ -15,6 +15,7 @@ namespace TPCore.Ecs.Systems
 
         private readonly EcsPoolInject<DashCommand> _dashPool = default;
         private readonly EcsPoolInject<MoveCommand> _movePool = default;
+        private readonly EcsPoolInject<BlockCommand> _blockPool = default;
 
         public void Run(IEcsSystems systems)
         {
@@ -26,6 +27,11 @@ namespace TPCore.Ecs.Systems
                 if (input.Dash)
                 {
                     _dashPool.Value.Add(entity);
+                }
+
+                if (input.Block)
+                {
+                    _blockPool.Value.Add(entity);
                 }
                 
                 if (input.HDeltaR != 0)

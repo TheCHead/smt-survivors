@@ -40,6 +40,7 @@ namespace TPCore.Ecs.Startups
                 // player
                 .Add(new PlayerInputSystem())
                 .Add(new CommandResolverSystem())
+                .Add(new PlayerBlockSystem())
                 .Add(new PlayerDashSystem())
                 .Add(new PlayerMoveSystem())
                 .Add(new PlayerViewSystem())
@@ -62,7 +63,9 @@ namespace TPCore.Ecs.Startups
                 .DelHere<BornEvent>()
                 // del player commands
                 .DelHere<MoveCommand>()
+                .DelHere<BlockCommand>()
                 .DelHere<DashCommand>()
+                .DelHere<ExitDashCommand>()
                 ;
         }
 

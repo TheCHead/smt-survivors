@@ -31,6 +31,7 @@ namespace TPCore.Ecs.Systems
                 input.HDeltaR = hR;
                 input.VDeltaR = vR;
                 input.Dash = dash;
+                input.Block = vR < 0;
             }
         }
     }

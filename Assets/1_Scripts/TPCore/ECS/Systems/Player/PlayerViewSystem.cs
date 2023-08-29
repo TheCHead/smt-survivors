@@ -10,11 +10,13 @@ namespace TPCore.Ecs.Systems
     {
         //private readonly EcsWorldInject _world = default;
         private readonly EcsFilterInject<Inc<PlayerTag, SpriteComponent, DashCommand, DashProcessComponent>> _dashEntities = default;
+        private readonly EcsFilterInject<Inc<PlayerTag, SpriteComponent, ExitDashCommand>> _exitDashEntities = default;
 
 
         public void Run(IEcsSystems systems)
         {
             OnDash();
+            OnExitDash();
         }
 
         private void OnDash()
@@ -24,7 +26,16 @@ namespace TPCore.Ecs.Systems
                 ref var sprite = ref _dashEntities.Pools.Inc2.Get(entity);
 
                 sprite.BodySprite.DOFade(0.5f, 0f);
-                sprite.BodySprite.DOFade(1f, 0f).SetDelay(0.5f);
+            }
+        }
+
+        private void OnExitDash()
+        {
+            foreach (int entity in _exitDashEntities.Value)
+            {
+                ref var sprite = ref _exitDashEntities.Pools.Inc2.Get(entity);
+
+                sprite.BodySprite.DOFade(1f, 0f);
             }
         }
     }

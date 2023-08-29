@@ -11,7 +11,7 @@ namespace TPCore.Ecs.Systems
     {
         //private readonly EcsWorldInject _world = default;
         private readonly EcsFilterInject<Inc<PlayerTag, TransformComponent, PlayerMoverComponent, MoveCommand>, 
-        Exc<DashProcessComponent>> _moveEntities = default;
+        Exc<DashProcessComponent, BlockCommand>> _moveEntities = default;
 
         public void Run(IEcsSystems systems)
         {
