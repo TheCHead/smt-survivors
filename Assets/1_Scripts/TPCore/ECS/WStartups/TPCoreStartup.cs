@@ -40,7 +40,9 @@ namespace TPCore.Ecs.Startups
                 // player
                 .Add(new PlayerInputSystem())
                 .Add(new CommandResolverSystem())
-                .Add(new PlayerMovementSystem())
+                .Add(new PlayerDashSystem())
+                .Add(new PlayerMoveSystem())
+                .Add(new PlayerViewSystem())
                 
                 // skills
                 .Add(new SkillUserSystem())
