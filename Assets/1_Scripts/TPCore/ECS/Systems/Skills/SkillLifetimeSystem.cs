@@ -7,7 +7,7 @@ namespace TPCore.Ecs.Systems
 {
     public class SkillLifetimeSystem : IEcsRunSystem
     {
-        //private readonly EcsWorldInject _world = default;
+        private readonly EcsWorldInject _world = default;
         private readonly EcsFilterInject<Inc<SkillComponent>, Exc<CooldownComponent>> _readyFilter = default;
         //private readonly EcsFilterInject<Inc<SkillComponent, FireSkillComponent>> _fireFilter = default;
         //private readonly EcsFilterInject<Inc<SkillComponent, ProcessSkillComponent>> _processFilter = default;
@@ -31,13 +31,24 @@ namespace TPCore.Ecs.Systems
         {
             foreach (var entity in _readyFilter.Value)
             {
-                // add Fire component
-                _firePool.Value.Add(entity);
+                ref var skill = ref _readyFilter.Pools.Inc1.Get(entity);
                 
+                // sleep if using is dashing or blocking
+                if (skill.UserEntity.Unpack(_world.Value, out int userEntity))
+                {
+                    if (_world.Value.GetPool<DashProcessComponent>().Has(userEntity) 
+                    || _world.Value.GetPool<BlockCommand>().Has(userEntity))
+                    {
+                        continue;
+                    }
+                }
+
                 // add Cooldown component
                 ref var cooldown = ref _cooldownPool.Value.Add(entity);
-                ref var skill = ref _readyFilter.Pools.Inc1.Get(entity);
                 cooldown.CooldownTime = skill.Data.Cooldown;
+
+                // add Fire component
+                _firePool.Value.Add(entity);
             }
         }
 

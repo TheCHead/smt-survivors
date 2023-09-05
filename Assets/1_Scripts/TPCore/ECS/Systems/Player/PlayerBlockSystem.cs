@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Common.Ecs.Components;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
@@ -21,7 +19,6 @@ namespace TPCore.Ecs.Systems
         {
             foreach (int entity in _blockEntities.Value)
             {
-
                 Debug.Log("Block");
             }
         }

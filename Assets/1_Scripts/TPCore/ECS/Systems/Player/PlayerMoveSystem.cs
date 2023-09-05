@@ -3,7 +3,6 @@ using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using TPCore.Ecs.Components;
 using UnityEngine;
-using DG.Tweening;
 
 namespace TPCore.Ecs.Systems
 {

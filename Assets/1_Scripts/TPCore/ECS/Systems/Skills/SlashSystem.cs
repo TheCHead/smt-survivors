@@ -34,6 +34,7 @@ namespace TPCore.Ecs.Systems
                 // fire skill only if user entity is available
                 if (!skill.UserEntity.Unpack(_world.Value, out int userEntity)) 
                     continue;
+
                 
                 ref var userTf = ref _transformPool.Value.Get(userEntity);
                 

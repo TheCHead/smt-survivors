@@ -20,8 +20,6 @@ namespace TPCore.Ecs.Systems
                 ref var damage = ref _damageEntities.Pools.Inc2.Get(entity);
 
                 life.HealthPoints -= damage.DamagePoints;
-                
-                Debug.Log("Remaining HP: " + life.HealthPoints);
 
                 if (life.HealthPoints <= 0)
                 {
